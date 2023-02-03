@@ -2,6 +2,7 @@ import React from "react";
 import man from "../assets/man.png";
 import email from "../assets/email-icon.png";
 import phone from "../assets/phone-num-icon.png";
+import SignleExperience from "./SignleExperience";
 function Cv() {
   return (
     <section className="cv">
@@ -27,6 +28,13 @@ function Cv() {
           </div>
         </div>
         <img src={man} className="img" />
+      </div>
+      <hr style={{ marginTop: "20px" }}></hr>
+      <div className="experience-section">
+        <h3>გამოცდილება</h3>
+        <div className="experiences">
+          <SignleExperience />
+        </div>
       </div>
       <hr style={{ marginTop: "20px" }}></hr>
     </section>

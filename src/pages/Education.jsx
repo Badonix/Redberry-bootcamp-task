@@ -9,7 +9,7 @@ function Education() {
     navigate("/experience");
   };
 
-  const nextPage = () => {
+  const handleFinish = () => {
     navigate("/");
   };
   return (
@@ -18,14 +18,14 @@ function Education() {
         <BackToMenu />
         <div className="private-info-top-row">
           <div className="top-info">
-            <h2>გამოცდილება</h2>
-            <p>2/3</p>
+            <h2>განათლება</h2>
+            <p>3/3</p>
           </div>
           <div className="line"></div>
         </div>
         <form>
           <div className="position-row">
-            <label htmlFor="position">თანამდებობა</label>
+            <label htmlFor="position">სასწავლებელი</label>
             <input
               type="text"
               id="position"
@@ -33,19 +33,29 @@ function Education() {
             />
             <p className="hint">მინიმუმ 2 სიმბოლო </p>
           </div>
-          <div className="recruiter-row">
-            <label htmlFor="recruiter">დამსაქმებელი</label>
-            <input
-              type="text"
-              id="recruiter"
-              placeholder="დეველოპერი, დიზაინერი და ა.შ"
-            />
-            <p className="hint">მინიმუმ 2 სიმბოლო </p>
-          </div>
           <div className="date-row">
             <div className="start-date">
-              <label>დაწყების რიცხვი</label>
-              <input type="date" />
+              <label htmlFor="quality">ხარისხი</label>
+              <select id="quality">
+                <option value="" selected disabled hidden>
+                  აირჩიეთ ხარისხი
+                </option>
+                <option value="საშუალო სკოლის დიპლომი">
+                  საშუალო სკოლის დიპლომი
+                </option>
+                <option value="ზოგადსაგანმანათლებლო დიპლომი">
+                  ზოგადსაგანმანათლებლო დიპლომი
+                </option>
+                <option value="ბაკალავრი">ბაკალავრი</option>
+                <option value="მაგისტრი">მაგისტრი</option>
+                <option value="დოქტორი">დოქტორი</option>
+                <option value="ასოცირებული ხარისხი">ასოცირებული ხარისხი</option>
+                <option value="სტუდენტი">სტუდენტი</option>
+                <option value="კოლეჯი (ხარისხის გარეშე)">
+                  კოლეჯი (ხარისხის გარეშე)
+                </option>
+                <option value="სხვა">სხვა</option>
+              </select>
             </div>
             <div className="end-date">
               <label>დამთავრების რიცხვი</label>
@@ -54,18 +64,16 @@ function Education() {
           </div>
 
           <div className="about-me-row">
-            <label>აღწერა (არასავალდებულო)</label>
-            <textarea
-              placeholder={"როლი თანამდებობაზე და ზოგადი აღწერა"}
-            ></textarea>
+            <label>აღწერა</label>
+            <textarea placeholder={"განათლების აღწერა"}></textarea>
           </div>
           <hr></hr>
-          <button className="add-experience">მეტი გამოცდილების დამატება</button>
+          <button className="add-experience">მეტი სასწავლებლის დამატება</button>
         </form>
         <div className="next-btn-cont">
           <button onClick={previousPage}>უკან</button>
           <div></div>
-          <button onClick={nextPage}>შემდეგი</button>
+          <button onClick={handleFinish}>დასრულება</button>
         </div>
       </div>
       <Cv />
