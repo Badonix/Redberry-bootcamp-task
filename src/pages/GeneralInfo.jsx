@@ -1,11 +1,17 @@
 import React from "react";
 import Cv from "../components/Cv";
 import backbtn from "../assets/back-btn.png";
+import { useNavigate } from "react-router-dom";
+import BackToMenu from "../components/BackToMenu";
 function GeneralInfo() {
+  const navigate = useNavigate();
+  const handleNextPage = () => {
+    navigate("/experience");
+  };
   return (
     <section className="generalinfo">
       <div className="private-info">
-        <img className="back-btn" src={backbtn} />
+        <BackToMenu />
         <div className="private-info-top-row">
           <div className="top-info">
             <h2>პირადი ინფო</h2>
@@ -53,9 +59,10 @@ function GeneralInfo() {
         <div className="next-btn-cont">
           <div></div>
           <div></div>
-          <button>შემდეგი</button>
+          <button onClick={handleNextPage}>შემდეგი</button>
         </div>
       </div>
+      <Cv />
     </section>
   );
 }

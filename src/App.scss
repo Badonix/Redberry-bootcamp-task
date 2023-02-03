@@ -8,6 +8,7 @@ $primarry-button-padding: 18px 126px;
   margin: 0;
   padding: 0;
   font-family: "BPG Arial", sans-serif;
+  box-sizing: border-box;
 }
 %button {
   outline: none;
@@ -84,7 +85,7 @@ body,
     font-weight: bold;
   }
   display: grid;
-  grid-template-columns: 55vw 45vw;
+  grid-template-columns: 60vw 40vw;
   height: 100%;
   .private-info {
     background-color: #f9f9f9;
@@ -116,14 +117,32 @@ body,
       gap: 40px;
       margin-top: 50px;
       .form-first-row {
+        width: 100%;
         display: flex;
         justify-content: space-between;
         align-items: center;
+        gap: 20px;
+      }
+      .add-experience {
+        background-color: #62a1eb;
+        color: white;
+        border-radius: 4px;
+        border: none;
+        padding: 14px 20px;
+        font-size: 16px;
+        width: 289px;
       }
       .name-row,
-      .surname-row {
+      .surname-row,
+      .position-row,
+      .recruiter-row {
+        width: 100%;
+        gap: 20px;
         label {
           font-weight: bold;
+        }
+        input {
+          width: 100%;
         }
         display: flex;
         gap: 5px;
@@ -175,6 +194,24 @@ body,
           width: 100%;
         }
       }
+      .date-row {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        justify-content: space-between;
+        .start-date,
+        .end-date {
+          display: flex;
+          width: 100%;
+          flex-direction: column;
+          justify-content: flex-start;
+          align-items: flex-start;
+          gap: 5px;
+        }
+        input {
+          width: 100%;
+        }
+      }
     }
     .next-btn-cont {
       display: flex;
@@ -189,6 +226,61 @@ body,
         border: none;
         border-radius: 5px;
         cursor: pointer;
+      }
+    }
+  }
+}
+
+.cv {
+  padding: 48px 75px;
+  .top-cv {
+    display: flex;
+    justify-content: space-between;
+    h2 {
+      color: #f93b1d;
+      font-size: 34px;
+      font-weight: 700;
+    }
+    .img {
+      width: 246px;
+      height: 246px;
+      border-radius: 50%;
+      object-fit: cover;
+      float: left;
+    }
+    .left {
+      display: flex;
+      flex-direction: column;
+      margin-top: 20px;
+      gap: 20px;
+      .contact {
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+        .contact-item {
+          display: flex;
+          align-items: center;
+          font-size: 18px;
+          font-weight: bold;
+          gap: 10px;
+          img {
+            width: 16px;
+          }
+        }
+      }
+      .about-me {
+        h3 {
+          color: #f93b1d;
+          font-size: 18px;
+          font-weight: bold;
+        }
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        p {
+          font-size: 16px;
+          font-weight: bold;
+        }
       }
     }
   }
