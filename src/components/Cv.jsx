@@ -1,42 +1,66 @@
 import React from "react";
 import man from "../assets/man.png";
-import email from "../assets/email-icon.png";
+import emailIcon from "../assets/email-icon.png";
 import phone from "../assets/phone-num-icon.png";
-import SignleExperience from "./SignleExperience";
+import SingleExperience from "./SingleExperience";
+import SingleEducation from "./SingleEducation";
+import cvWatermark from "../assets/cv-watermark.png";
+import { useGlobalContext } from "../Context";
 function Cv() {
+  const {
+    name,
+    surname,
+    email,
+    about,
+    phonenum,
+    image,
+    experience,
+    education,
+  } = useGlobalContext();
+
   return (
     <section className="cv">
       <div className="top-cv">
         <div className="left">
-          <h2>ანზორ მუმლაძე</h2>
+          <h2>
+            {name} {surname}
+          </h2>
           <div className="contact">
             <div className="contact-item">
-              <img src={email} />
-              <p>anzor666@redberry.ge</p>
+              <img src={emailIcon} />
+              <p>{email}</p>
             </div>
             <div className="contact-item">
               <img src={phone} />
-              <p>+995 551 12 34 56</p>
+              <p>{phonenum}</p>
             </div>
           </div>
           <div className="about-me">
             <h3>ჩემ შესახებ</h3>
-            <p>
-              ძალიან მიყვარს დიზაინის კეთება. დილით ადრე რომ ავდგები
-              გამამხნევებელი ვარჯიშების მაგიერ დიზაინს ვაკეთებ.
-            </p>
+            <p>{about}</p>
           </div>
         </div>
-        <img src={man} className="img" />
+        <img src={image} className="img" />
       </div>
       <hr style={{ marginTop: "20px" }}></hr>
       <div className="experience-section">
         <h3>გამოცდილება</h3>
         <div className="experiences">
-          <SignleExperience />
+          {experience.map((el) => {
+            return <SingleExperience _id={el.id} />;
+          })}
         </div>
       </div>
       <hr style={{ marginTop: "20px" }}></hr>
+      <div className="education-section">
+        <h3>განათლება</h3>
+        <div className="educations">
+          {education.map((el) => {
+            return <SingleEducation _id={el.id} />;
+          })}
+        </div>
+      </div>
+      <img src={cvWatermark} className="cv-watermark" />
     </section>
   );
 }

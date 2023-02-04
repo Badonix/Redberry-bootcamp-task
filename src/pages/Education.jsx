@@ -1,10 +1,19 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Cv from "../components/Cv";
 import BackToMenu from "../components/BackToMenu";
 import { useNavigate } from "react-router-dom";
+import EducationForm from "../components/EducationForm";
+import { nanoid } from "nanoid";
+import { useGlobalContext } from "../Context";
 function Education() {
   const navigate = useNavigate();
-
+  const { education, setEducation } = useGlobalContext();
+  const [currentEducations, setCurrentEducations] = useState([
+    { id: nanoid() },
+  ]);
+  useEffect(() => {
+    setEducation(currentEducations);
+  }, [currentEducations]);
   const previousPage = () => {
     navigate("/experience");
   };
@@ -23,53 +32,30 @@ function Education() {
           </div>
           <div className="line"></div>
         </div>
-        <form>
-          <div className="position-row">
-            <label htmlFor="position">სასწავლებელი</label>
-            <input
-              type="text"
-              id="position"
-              placeholder="დეველოპერი, დიზაინერი და ა.შ"
-            />
-            <p className="hint">მინიმუმ 2 სიმბოლო </p>
-          </div>
-          <div className="date-row">
-            <div className="start-date">
-              <label htmlFor="quality">ხარისხი</label>
-              <select id="quality">
-                <option value="" selected disabled hidden>
-                  აირჩიეთ ხარისხი
-                </option>
-                <option value="საშუალო სკოლის დიპლომი">
-                  საშუალო სკოლის დიპლომი
-                </option>
-                <option value="ზოგადსაგანმანათლებლო დიპლომი">
-                  ზოგადსაგანმანათლებლო დიპლომი
-                </option>
-                <option value="ბაკალავრი">ბაკალავრი</option>
-                <option value="მაგისტრი">მაგისტრი</option>
-                <option value="დოქტორი">დოქტორი</option>
-                <option value="ასოცირებული ხარისხი">ასოცირებული ხარისხი</option>
-                <option value="სტუდენტი">სტუდენტი</option>
-                <option value="კოლეჯი (ხარისხის გარეშე)">
-                  კოლეჯი (ხარისხის გარეშე)
-                </option>
-                <option value="სხვა">სხვა</option>
-              </select>
-            </div>
-            <div className="end-date">
-              <label>დამთავრების რიცხვი</label>
-              <input type="date" />
-            </div>
-          </div>
+        <div className="form-cont">
+          <form>
+            {currentEducations.map((el) => {
+              return (
+                <EducationForm
+                  key={el.id}
+                  educationsKey={el.id}
+                  currentEducations={currentEducations}
+                  setCurrentEducations={setCurrentEducations}
+                />
+              );
+            })}
 
-          <div className="about-me-row">
-            <label>აღწერა</label>
-            <textarea placeholder={"განათლების აღწერა"}></textarea>
-          </div>
-          <hr></hr>
-          <button className="add-experience">მეტი სასწავლებლის დამატება</button>
-        </form>
+            <button
+              onClick={() =>
+                setCurrentEducations((prev) => [...prev, { id: nanoid() }])
+              }
+              type="button"
+              className="add-experience"
+            >
+              მეტი სასწავლებლის დამატება
+            </button>
+          </form>
+        </div>
         <div className="next-btn-cont">
           <button onClick={previousPage}>უკან</button>
           <div></div>
