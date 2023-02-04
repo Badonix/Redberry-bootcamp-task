@@ -27,22 +27,36 @@ function Cv() {
           </h2>
           <div className="contact">
             <div className="contact-item">
-              <img src={emailIcon} />
-              <p>{email}</p>
+              {email && (
+                <>
+                  <img src={emailIcon} />
+                  <p>{email}</p>
+                </>
+              )}
             </div>
             <div className="contact-item">
-              <img src={phone} />
-              <p>{phonenum}</p>
+              {phonenum && (
+                <>
+                  <img src={phone} />
+                  <p>{phonenum}</p>
+                </>
+              )}
             </div>
           </div>
           <div className="about-me">
-            <h3>ჩემ შესახებ</h3>
-            <p>{about}</p>
+            {about && (
+              <>
+                <h3>ჩემ შესახებ</h3>
+                <p>{about}</p>
+              </>
+            )}
           </div>
         </div>
-        <img src={image} className="img" />
+        {image && <img src={image} className="img" />}
       </div>
-      <hr style={{ marginTop: "20px" }}></hr>
+      {image && phonenum && email && name && surname && (
+        <hr style={{ marginTop: "20px" }}></hr>
+      )}
       <div className="experience-section">
         <h3>გამოცდილება</h3>
         <div className="experiences">
