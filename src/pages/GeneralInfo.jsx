@@ -45,8 +45,13 @@ function GeneralInfo() {
   };
 
   const handleImageChange = (event) => {
-    setImage(URL.createObjectURL(event.target.files[0]));
-    setIsImageValidated(true);
+    const reader = new FileReader();
+    reader.readAsDataURL(event.target.files[0]);
+    reader.onload = (e) => {
+      setImage(e.target.result);
+      localStorage.setItem("userImage", e.target.result);
+      setIsImageValidated(true);
+    };
   };
   const letters = "ქწერტყუიოპასდფგჰჯკლზხცვბნმჭღთშჟძჩ";
   useEffect(() => {
@@ -101,13 +106,13 @@ function GeneralInfo() {
               {isNameValidated && name.length > 0 && (
                 <img
                   src={validated}
-                  style={{ position: "absolute", top: "34px", right: "10px" }}
+                  style={{ position: "absolute", top: "35px", right: "10px" }}
                 />
               )}
               {!isNameValidated && name.length > 0 && (
                 <img
                   src={error}
-                  style={{ position: "absolute", top: "34px", right: "-30px" }}
+                  style={{ position: "absolute", top: "35px", right: "10px" }}
                 />
               )}
               <label
@@ -134,13 +139,13 @@ function GeneralInfo() {
               {isSurnameValidated && surname.length > 0 && (
                 <img
                   src={validated}
-                  style={{ position: "absolute", top: "34px", right: "10px" }}
+                  style={{ position: "absolute", top: "35px", right: "10px" }}
                 />
               )}
               {!isSurnameValidated && surname.length > 0 && (
                 <img
                   src={error}
-                  style={{ position: "absolute", top: "34px", right: "-30px" }}
+                  style={{ position: "absolute", top: "35px", right: "10px" }}
                 />
               )}
               <label
@@ -170,7 +175,7 @@ function GeneralInfo() {
             {!isImageValidated && (
               <img
                 src={error}
-                style={{ position: "absolute", top: "2px", right: "-30px" }}
+                style={{ position: "absolute", top: "2px", right: "-10px" }}
               />
             )}
             <input
@@ -207,7 +212,7 @@ function GeneralInfo() {
             {!isEmailValidated && email.length > 0 && (
               <img
                 src={error}
-                style={{ position: "absolute", top: "40px", right: "-30px" }}
+                style={{ position: "absolute", top: "40px", right: "10px" }}
               />
             )}
             <label
@@ -240,7 +245,7 @@ function GeneralInfo() {
             {!isPhonenumValid && phonenum.length > 0 && (
               <img
                 src={error}
-                style={{ position: "absolute", top: "40px", right: "-30px" }}
+                style={{ position: "absolute", top: "40px", right: "10px" }}
               />
             )}
             <label

@@ -4,6 +4,7 @@ import emailIcon from "../assets/email-icon.png";
 import phone from "../assets/phone-num-icon.png";
 import SingleExperience from "./SingleExperience";
 import SingleEducation from "./SingleEducation";
+import { useEffect, useState } from "react";
 import cvWatermark from "../assets/cv-watermark.png";
 import { useGlobalContext } from "../Context";
 function Cv() {
@@ -14,7 +15,7 @@ function Cv() {
     about,
     phonenum,
     image,
-    experience,
+    experiences,
     education,
   } = useGlobalContext();
 
@@ -57,19 +58,21 @@ function Cv() {
       {image && phonenum && email && name && surname && (
         <hr style={{ marginTop: "20px" }}></hr>
       )}
-      <div className="experience-section">
-        <h3>გამოცდილება</h3>
-        <div className="experiences">
-          {experience.map((el) => {
-            return <SingleExperience _id={el.id} />;
-          })}
+      {
+        <div className="experience-section">
+          <h3>გამოცდილება</h3>
+          <div className="experiences">
+            {experiences?.map((el) => {
+              return <SingleExperience _id={el.id} />;
+            })}
+          </div>
         </div>
-      </div>
+      }
       <hr style={{ marginTop: "20px" }}></hr>
       <div className="education-section">
         <h3>განათლება</h3>
         <div className="educations">
-          {education.map((el) => {
+          {education?.map((el) => {
             return <SingleEducation _id={el.id} />;
           })}
         </div>

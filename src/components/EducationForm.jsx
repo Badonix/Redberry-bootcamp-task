@@ -1,7 +1,7 @@
 import React from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { useState, useEffect } from "react";
-
+import axios from "axios";
 function EducationForm({
   educationsKey,
   currentEducations,
@@ -10,8 +10,13 @@ function EducationForm({
   const [educationPlace, setEducationPlace] = useState("");
   const [educationQuality, setEducationQuality] = useState("");
   const [endDate, setEndDate] = useState("");
+  const [degrees, setDegrees] = useState([]);
   const [description, setDescription] = useState("");
-
+  useEffect(() => {
+    axios
+      .get("https://resume.redberryinternship.ge/api/degrees")
+      .then((res) => setDegrees(res.data));
+  }, []);
   useEffect(() => {
     setCurrentEducations((prev) => {
       return prev.map((el) => {
@@ -75,21 +80,13 @@ function EducationForm({
             <option value={"აირჩიეთ ხარისხი"} hidden>
               აირჩიეთ ხარისხი
             </option>
-            <option value="საშუალო სკოლის დიპლომი">
-              საშუალო სკოლის დიპლომი
-            </option>
-            <option value="ზოგადსაგანმანათლებლო დიპლომი">
-              ზოგადსაგანმანათლებლო დიპლომი
-            </option>
-            <option value="ბაკალავრი">ბაკალავრი</option>
-            <option value="მაგისტრი">მაგისტრი</option>
-            <option value="დოქტორი">დოქტორი</option>
-            <option value="ასოცირებული ხარისხი">ასოცირებული ხარისხი</option>
-            <option value="სტუდენტი">სტუდენტი</option>
-            <option value="კოლეჯი (ხარისხის გარეშე)">
-              კოლეჯი (ხარისხის გარეშე)
-            </option>
-            <option value="სხვა">სხვა</option>
+            {degrees.map((el) => {
+              return (
+                <option key={el.id} value={el.title}>
+                  {el.title}
+                </option>
+              );
+            })}
           </select>
         </div>
         <div className="end-date">
