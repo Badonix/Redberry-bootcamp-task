@@ -8,12 +8,12 @@ import { useGlobalContext } from "../Context";
 function Education() {
   const navigate = useNavigate();
   const { education, setEducation } = useGlobalContext();
-  const [currentEducations, setCurrentEducations] = useState([
-    { id: nanoid() },
-  ]);
+  const [isValid, setIsValid] = useState(false);
   useEffect(() => {
-    setEducation(currentEducations);
-  }, [currentEducations]);
+    localStorage.setItem("education", JSON.stringify(education));
+    console.log(education);
+  }, [education]);
+
   const previousPage = () => {
     navigate("/experience");
   };
@@ -32,30 +32,33 @@ function Education() {
           </div>
           <div className="line"></div>
         </div>
-        <div className="form-cont">
-          <form>
-            {currentEducations.map((el) => {
-              return (
-                <EducationForm
-                  key={el.id}
-                  educationsKey={el.id}
-                  currentEducations={currentEducations}
-                  setCurrentEducations={setCurrentEducations}
-                />
-              );
-            })}
 
-            <button
-              onClick={() =>
-                setCurrentEducations((prev) => [...prev, { id: nanoid() }])
+        <form className="educationsForm">
+          {education?.map((el) => {
+            return (
+              <EducationForm
+                key={el.id}
+                educationsKey={el.id}
+                setIsValid={setIsValid}
+                education={education}
+                setEducation={setEducation}
+              />
+            );
+          })}
+
+          <button
+            onClick={() => {
+              if (isValid) {
+                setEducation((prev) => [...prev, { id: nanoid() }]);
               }
-              type="button"
-              className="add-experience"
-            >
-              მეტი სასწავლებლის დამატება
-            </button>
-          </form>
-        </div>
+            }}
+            type="button"
+            className="add-experience"
+          >
+            მეტი სასწავლებლის დამატება
+          </button>
+        </form>
+
         <div className="next-btn-cont">
           <button onClick={previousPage}>უკან</button>
           <div></div>

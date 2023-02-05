@@ -29,16 +29,8 @@ function ExperienceForm({
       setDescription(exp.description);
     }
   }, []);
-  useEffect(() => {
-    // setExperiences((prev) => {
-    //   return prev?.map((el) => {
-    //     console.log(el);
-    //     // if (el.id == experiencesKey) {
-    //     //   return recruiter, position, startDate, endDate, description;
-    //     // }
-    //   });
-    // });
 
+  useEffect(() => {
     setExperiences((prev) => {
       return prev.map((el) => {
         if (el.id === experiencesKey) {

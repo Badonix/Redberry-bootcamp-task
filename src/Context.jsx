@@ -11,7 +11,9 @@ const AppProvider = ({ children }) => {
     localStorage.getItem("phonenum") || ""
   );
   const [image, setImage] = useState(localStorage.getItem("userImage") || "");
-  const [education, setEducation] = useState([]);
+  const [education, setEducation] = useState(
+    JSON.parse(localStorage.getItem("education")) || [{ id: nanoid() }]
+  );
   const [experiences, setExperiences] = useState(
     JSON.parse(localStorage.getItem("experiences")) || [{ id: nanoid() }]
   );

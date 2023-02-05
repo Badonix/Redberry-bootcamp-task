@@ -1,24 +1,35 @@
 import React from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { useState, useEffect } from "react";
+import validated from "../assets/validated.png";
+import error from "../assets/error.png";
 import axios from "axios";
-function EducationForm({
-  educationsKey,
-  currentEducations,
-  setCurrentEducations,
-}) {
+function EducationForm({ setIsValid, educationsKey, education, setEducation }) {
   const [educationPlace, setEducationPlace] = useState("");
   const [educationQuality, setEducationQuality] = useState("");
   const [endDate, setEndDate] = useState("");
   const [degrees, setDegrees] = useState([]);
   const [description, setDescription] = useState("");
+  const [isEducationValid, setIsEducationValid] = useState();
   useEffect(() => {
     axios
       .get("https://resume.redberryinternship.ge/api/degrees")
       .then((res) => setDegrees(res.data));
   }, []);
   useEffect(() => {
-    setCurrentEducations((prev) => {
+    const edu = JSON.parse(localStorage.getItem("education"))?.find(
+      (el) => el.id == educationsKey
+    );
+    if (edu) {
+      setEducationPlace(edu.educationPlace);
+      setEducationQuality(edu.educationQuality);
+      setEndDate(edu.endDate);
+      setDescription(edu.description);
+    }
+  }, []);
+
+  useEffect(() => {
+    setEducation((prev) => {
       return prev.map((el) => {
         if (el.id === educationsKey) {
           return {
@@ -33,13 +44,22 @@ function EducationForm({
         }
       });
     });
+    educationPlace?.length >= 2
+      ? setIsEducationValid(true)
+      : setIsEducationValid(false);
   }, [educationPlace, educationQuality, endDate, description]);
 
+  useEffect(() => {
+    if (isEducationValid && endDate && educationQuality && description) {
+      setIsValid(true);
+    } else {
+      setIsValid(false);
+    }
+  }, [isEducationValid, endDate, educationQuality, description]);
   const handleRemoveEducation = () => {
-    const removedArray = currentEducations.filter(
-      (el) => el.id != educationsKey
-    );
-    setCurrentEducations(removedArray);
+    const removedArray = education.filter((el) => el.id != educationsKey);
+    setEducation(removedArray);
+    setIsValid(true);
   };
   return (
     <div
@@ -51,20 +71,48 @@ function EducationForm({
         gap: "20px",
       }}
     >
-      {currentEducations.length > 1 && (
+      {education.length > 1 && (
         <AiOutlineCloseCircle
           onClick={handleRemoveEducation}
           className="close-btn"
         />
       )}
       <div className="position-row">
-        <label htmlFor="position">სასწავლებელი</label>
+        {!isEducationValid && educationPlace?.length > 0 && (
+          <img
+            style={{
+              position: "absolute",
+              right: "10px",
+            }}
+            src={error}
+          />
+        )}
+        {isEducationValid && (
+          <img
+            style={{ position: "absolute", right: "10px" }}
+            src={validated}
+          />
+        )}
+
+        <label
+          className={
+            !isEducationValid && educationPlace?.length > 0 && "error-color"
+          }
+          htmlFor="position"
+        >
+          სასწავლებელი
+        </label>
         <input
           onChange={(e) => setEducationPlace(e.target.value)}
           value={educationPlace}
           type="text"
           id="position"
-          placeholder="დეველოპერი, დიზაინერი და ა.შ"
+          className={
+            isEducationValid
+              ? "validated"
+              : educationPlace?.length > 0 && "not-validated"
+          }
+          placeholder="სასწავლებელი"
         />
         <p className="hint">მინიმუმ 2 სიმბოლო </p>
       </div>
