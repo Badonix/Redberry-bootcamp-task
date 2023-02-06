@@ -349,6 +349,20 @@ body,
       color: #f93b1d;
       font-size: 18px;
     }
+    .experiences,
+    .educations {
+      margin-top: 5px;
+      max-height: 237px;
+      overflow-y: auto;
+      &::-webkit-scrollbar {
+        background-color: transparent;
+        width: 3px;
+      }
+      &::-webkit-scrollbar-thumb {
+        background-color: #f93b1d;
+        border-radius: 5px;
+      }
+    }
     .single-experience,
     .single-education {
       display: flex;
@@ -428,7 +442,7 @@ input:focus {
 
   .cv {
     position: relative;
-    padding: 50px 80px;
+    padding: 40px 100px;
     height: 90%;
     width: 822px;
     border: 1px solid black;

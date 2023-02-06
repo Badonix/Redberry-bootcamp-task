@@ -58,7 +58,11 @@ function Cv() {
       {image && phonenum && email && name && surname && (
         <hr style={{ marginTop: "20px" }}></hr>
       )}
-      {
+      {(experiences[0].position ||
+        experiences[0].recruiter ||
+        experiences[0].startDate ||
+        experiences[0].endDate ||
+        experiences[0].description) && (
         <div className="experience-section">
           <h3>გამოცდილება</h3>
           <div className="experiences">
@@ -67,16 +71,23 @@ function Cv() {
             })}
           </div>
         </div>
-      }
-      <hr style={{ marginTop: "20px" }}></hr>
-      <div className="education-section">
-        <h3>განათლება</h3>
-        <div className="educations">
-          {education?.map((el) => {
-            return <SingleEducation _id={el.id} />;
-          })}
-        </div>
-      </div>
+      )}
+      {(education[0].educationPlace ||
+        education[0].educationQuality ||
+        education[0].endDate ||
+        education[0].description) && (
+        <>
+          <hr style={{ marginTop: "20px" }}></hr>
+          <div className="education-section">
+            <h3>განათლება</h3>
+            <div className="educations">
+              {education?.map((el) => {
+                return <SingleEducation _id={el.id} />;
+              })}
+            </div>
+          </div>
+        </>
+      )}
       <img src={cvWatermark} className="cv-watermark" />
     </section>
   );
