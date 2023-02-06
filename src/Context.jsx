@@ -10,6 +10,7 @@ const AppProvider = ({ children }) => {
   const [phonenum, setPhonenum] = useState(
     localStorage.getItem("phonenum") || ""
   );
+  const [file, setFile] = useState(localStorage.getItem("file") || "");
   const [image, setImage] = useState(localStorage.getItem("userImage") || "");
   const [education, setEducation] = useState(
     JSON.parse(localStorage.getItem("education")) || [{ id: nanoid() }]
@@ -25,6 +26,7 @@ const AppProvider = ({ children }) => {
     localStorage.setItem("email", email);
     localStorage.setItem("phonenum", phonenum);
   }, [name, surname, about, email, phonenum, image]);
+
   return (
     <AppContext.Provider
       value={{
@@ -44,12 +46,15 @@ const AppProvider = ({ children }) => {
         setPhonenum,
         experiences,
         setExperiences,
+        file,
+        setFile,
       }}
     >
       {children}
     </AppContext.Provider>
   );
 };
+
 export const useGlobalContext = () => {
   return useContext(AppContext);
 };

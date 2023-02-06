@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import Experience from "./pages/Experience";
 import GeneralInfo from "./pages/GeneralInfo";
 import Education from "./pages/Education";
+import Finish from "./pages/Finish";
 function App() {
   return (
     <BrowserRouter>
@@ -12,6 +13,7 @@ function App() {
         <Route path="/usergeneral" element={<GeneralInfo />} />
         <Route path="/experience" element={<Experience />} />
         <Route path="/education" element={<Education />} />
+        <Route path="/finish" element={<Finish />} />
       </Routes>
     </BrowserRouter>
   );

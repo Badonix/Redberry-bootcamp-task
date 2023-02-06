@@ -19,7 +19,9 @@ function Education() {
   };
 
   const handleFinish = () => {
-    navigate("/");
+    if (isValid) {
+      navigate("/finish");
+    }
   };
   return (
     <section className="generalinfo">

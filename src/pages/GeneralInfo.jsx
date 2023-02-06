@@ -25,6 +25,7 @@ function GeneralInfo() {
     setAbout,
     phonenum,
     setPhonenum,
+    setFile,
   } = useGlobalContext();
 
   const navigate = useNavigate();
@@ -47,8 +48,11 @@ function GeneralInfo() {
   const handleImageChange = (event) => {
     const reader = new FileReader();
     reader.readAsDataURL(event.target.files[0]);
+
     reader.onload = (e) => {
       setImage(e.target.result);
+      setFile(event.target.files[0]);
+      // localStorage.setItem("file", event.target.files[0]);
       localStorage.setItem("userImage", e.target.result);
       setIsImageValidated(true);
     };

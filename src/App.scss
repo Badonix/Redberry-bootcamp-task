@@ -3,14 +3,14 @@ $button-primary-hover: rgb(29, 82, 255);
 $primarry-button-padding: 18px 126px;
 
 @font-face {
-  font-family: "HelveticaNeue";
+  font-family: "Helvetica Neue";
   src: url("./assets/fonts/HelveticaNeue.ttc");
 }
 
 * {
   margin: 0;
   padding: 0;
-  font-family: "HelveticaNeue";
+  font-family: "Helvetica Neue";
   box-sizing: border-box;
 }
 %button {
@@ -30,7 +30,14 @@ $primarry-button-padding: 18px 126px;
   width: 330px;
   outline: none;
 }
-
+.back-btn {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  top: 45px;
+  left: 45px;
+  cursor: pointer;
+}
 html,
 body,
 #root {
@@ -98,14 +105,7 @@ body,
     flex-direction: column;
     padding: 50px 150px 150px 150px;
     position: relative;
-    .back-btn {
-      width: 40px;
-      height: 40px;
-      position: absolute;
-      top: 45px;
-      left: 45px;
-      cursor: pointer;
-    }
+
     .top-info {
       display: flex;
       align-items: center;
@@ -390,4 +390,161 @@ input:focus {
 }
 .error-color {
   color: #e52f2f;
+}
+
+.finished-page {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .notification {
+    animation: slide-in 1s ease-out;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    color: #1a1a1a;
+    font-size: 28px;
+    background-color: white;
+    border-radius: 3px;
+    max-width: 450px;
+    font-weight: 800;
+    box-shadow: 1px 2px 18px 3px rgba(0, 0, 0, 0.14);
+    -webkit-box-shadow: 1px 2px 18px 3px rgba(0, 0, 0, 0.14);
+    -moz-box-shadow: 1px 2px 18px 3px rgba(0, 0, 0, 0.14);
+    .notif-cont {
+      position: relative;
+      padding: 40px;
+      .close-icon {
+        position: absolute;
+        top: 15px;
+        font-size: 20px;
+        right: 15px;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .cv {
+    position: relative;
+    padding: 50px 80px;
+    height: 90%;
+    width: 822px;
+    border: 1px solid black;
+    .top-cv {
+      display: flex;
+      justify-content: space-between;
+      h2 {
+        color: #f93b1d;
+        font-size: 34px;
+        font-weight: 700;
+      }
+      .img {
+        width: 246px;
+        height: 246px;
+        border-radius: 50%;
+        object-fit: cover;
+        float: left;
+      }
+      .left {
+        display: flex;
+        flex-direction: column;
+        margin-top: 20px;
+        gap: 20px;
+        .contact {
+          display: flex;
+          flex-direction: column;
+          gap: 7px;
+          .contact-item {
+            display: flex;
+            align-items: center;
+            font-size: 18px;
+            font-weight: bold;
+            gap: 10px;
+            img {
+              width: 16px;
+            }
+          }
+        }
+        .about-me {
+          h3 {
+            color: #f93b1d;
+            font-size: 18px;
+            font-weight: bold;
+          }
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          p {
+            font-size: 16px;
+            font-weight: bold;
+          }
+        }
+      }
+    }
+    .experience-section,
+    .education-section {
+      margin-top: 10px;
+      h3 {
+        color: #f93b1d;
+        font-size: 18px;
+      }
+      .single-experience,
+      .single-education {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        gap: 5px;
+        margin-top: 15px;
+        font-size: 16px;
+        .general-experience,
+        .general-education {
+          display: flex;
+          flex-direction: column;
+          gap: 5px;
+        }
+        h5 {
+          color: #909090;
+          font-style: italic;
+          font-weight: 300;
+        }
+      }
+    }
+    .cv-watermark {
+      position: absolute;
+      bottom: 50px;
+      left: 50px;
+      width: 42px;
+      height: 42px;
+    }
+  }
+}
+
+.loader {
+  border: 10px solid #f93b1d;
+  width: 150px;
+  height: 150px;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  0% {
+    rotate: 0deg;
+  }
+  100% {
+    rotate: 360deg;
+  }
+}
+
+@keyframes slide-in {
+  0% {
+    transform: translateX(1000px);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }

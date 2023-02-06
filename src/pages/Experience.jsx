@@ -11,6 +11,7 @@ function Experience() {
   const { experiences, setExperiences } = useGlobalContext();
   const [isValid, setIsValid] = useState(false);
   useEffect(() => {
+    console.log(experiences);
     localStorage.setItem("experiences", JSON.stringify(experiences));
   }, [experiences]);
 
