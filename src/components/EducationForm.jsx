@@ -4,18 +4,14 @@ import { useState, useEffect } from "react";
 import validated from "../assets/validated.png";
 import error from "../assets/error.png";
 import axios from "axios";
+import { useGlobalContext } from "../Context";
 function EducationForm({ setIsValid, educationsKey, education, setEducation }) {
   const [educationPlace, setEducationPlace] = useState("");
   const [educationQuality, setEducationQuality] = useState("");
   const [endDate, setEndDate] = useState("");
-  const [degrees, setDegrees] = useState([]);
   const [description, setDescription] = useState("");
   const [isEducationValid, setIsEducationValid] = useState();
-  useEffect(() => {
-    axios
-      .get("https://resume.redberryinternship.ge/api/degrees")
-      .then((res) => setDegrees(res.data));
-  }, []);
+  const { degrees } = useGlobalContext();
   useEffect(() => {
     const edu = JSON.parse(localStorage.getItem("education"))?.find(
       (el) => el.id == educationsKey

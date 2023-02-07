@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import { nanoid } from "nanoid";
+import axios from "axios";
 const AppContext = React.createContext();
 
 const AppProvider = ({ children }) => {
@@ -18,6 +19,7 @@ const AppProvider = ({ children }) => {
   const [experiences, setExperiences] = useState(
     JSON.parse(localStorage.getItem("experiences")) || [{ id: nanoid() }]
   );
+  const [degrees, setDegrees] = useState([]);
 
   useEffect(() => {
     localStorage.setItem("name", name);
@@ -26,7 +28,11 @@ const AppProvider = ({ children }) => {
     localStorage.setItem("email", email);
     localStorage.setItem("phonenum", phonenum);
   }, [name, surname, about, email, phonenum, image]);
-
+  useEffect(() => {
+    axios
+      .get("https://resume.redberryinternship.ge/api/degrees")
+      .then((res) => setDegrees(res.data));
+  }, []);
   return (
     <AppContext.Provider
       value={{
@@ -37,6 +43,7 @@ const AppProvider = ({ children }) => {
         about,
         setAbout,
         image,
+        degrees,
         setImage,
         education,
         setEducation,

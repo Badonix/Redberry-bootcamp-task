@@ -11,7 +11,6 @@ function Education() {
   const [isValid, setIsValid] = useState(false);
   useEffect(() => {
     localStorage.setItem("education", JSON.stringify(education));
-    console.log(education);
   }, [education]);
 
   const previousPage = () => {

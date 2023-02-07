@@ -17,6 +17,7 @@ function Cv() {
     image,
     experiences,
     education,
+    degrees,
   } = useGlobalContext();
 
   return (
