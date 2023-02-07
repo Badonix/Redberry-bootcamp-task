@@ -12,6 +12,7 @@ function GeneralInfo() {
   const [isEmailValidated, setIsEmailValidated] = useState(false);
   const [isPhonenumValid, setIsPhonenumValid] = useState(false);
   const [isImageValidated, setIsImageValidated] = useState(true);
+  const [hasClicked, setHasClicked] = useState(false);
   const {
     setName,
     name,
@@ -30,6 +31,7 @@ function GeneralInfo() {
 
   const navigate = useNavigate();
   const handleNextPage = () => {
+    setHasClicked(true);
     if (
       isNameValidated &&
       isSurnameValidated &&
@@ -52,7 +54,6 @@ function GeneralInfo() {
     reader.onload = (e) => {
       setImage(e.target.result);
       setFile(event.target.files[0]);
-      // localStorage.setItem("file", event.target.files[0]);
       localStorage.setItem("userImage", e.target.result);
       setIsImageValidated(true);
     };
@@ -107,54 +108,92 @@ function GeneralInfo() {
         <form>
           <div className="form-first-row">
             <div className="name-row">
-              {isNameValidated && name.length > 0 && (
+              {(name.length === 0 && hasClicked && (
                 <img
-                  src={validated}
-                  style={{ position: "absolute", top: "35px", right: "10px" }}
+                  src={hasClicked ? (isNameValidated ? validated : error) : ""}
+                  style={{ position: "absolute", top: "36px", right: "10px" }}
                 />
-              )}
-              {!isNameValidated && name.length > 0 && (
-                <img
-                  src={error}
-                  style={{ position: "absolute", top: "35px", right: "10px" }}
-                />
-              )}
+              )) ||
+                (name.length > 0 && (
+                  <img
+                    src={
+                      hasClicked
+                        ? isNameValidated
+                          ? validated
+                          : error
+                        : isNameValidated
+                        ? validated
+                        : error
+                    }
+                    style={{ position: "absolute", top: "36px", right: "10px" }}
+                  />
+                ))}
+
               <label
                 htmlFor="name"
-                className={!isNameValidated && name.length > 0 && "error-color"}
+                className={
+                  (!isNameValidated && name.length > 0 && "error-color") ||
+                  (hasClicked &&
+                    !isNameValidated &&
+                    name.length == 0 &&
+                    "error-color")
+                }
               >
                 სახელი
               </label>
               <input
-                onChange={(e) => handleNameChange(e)}
+                onChange={(e) => setName(e.target.value)}
                 value={name}
                 type="text"
                 id="name"
                 className={
-                  isNameValidated
-                    ? "validated"
-                    : name.length > 0 && "not-validated"
+                  hasClicked
+                    ? isNameValidated
+                      ? "validated"
+                      : "not-validated"
+                    : name.length > 0 && !isNameValidated
+                    ? "not-validated"
+                    : name.length == 0
+                    ? ""
+                    : "validated"
                 }
                 placeholder="ანზორ"
               />
               <p className="hint">მინიმუმ 2 ასო, ქართული ასოები</p>
             </div>
             <div className="surname-row">
-              {isSurnameValidated && surname.length > 0 && (
+              {(surname.length === 0 && hasClicked && (
                 <img
-                  src={validated}
-                  style={{ position: "absolute", top: "35px", right: "10px" }}
+                  src={
+                    hasClicked ? (isSurnameValidated ? validated : error) : ""
+                  }
+                  style={{ position: "absolute", top: "36px", right: "10px" }}
                 />
-              )}
-              {!isSurnameValidated && surname.length > 0 && (
-                <img
-                  src={error}
-                  style={{ position: "absolute", top: "35px", right: "10px" }}
-                />
-              )}
+              )) ||
+                (surname.length > 0 && (
+                  <img
+                    src={
+                      hasClicked
+                        ? isSurnameValidated
+                          ? validated
+                          : error
+                        : isSurnameValidated
+                        ? validated
+                        : error
+                    }
+                    style={{ position: "absolute", top: "36px", right: "10px" }}
+                  />
+                ))}
+
               <label
                 className={
-                  !isSurnameValidated && surname.length > 0 && "error-color"
+                  (!isSurnameValidated &&
+                    surname.length > 0 &&
+                    "error-color") ||
+                  (hasClicked &&
+                    !isSurnameValidated &&
+                    surname.length == 0 &&
+                    "error-color")
                 }
                 htmlFor="surname"
               >
@@ -167,9 +206,15 @@ function GeneralInfo() {
                 id="surname"
                 placeholder="მუმლაძე"
                 className={
-                  isSurnameValidated
-                    ? "validated"
-                    : surname.length > 0 && "not-validated"
+                  hasClicked
+                    ? isSurnameValidated
+                      ? "validated"
+                      : "not-validated"
+                    : surname.length > 0 && !isSurnameValidated
+                    ? "not-validated"
+                    : surname.length == 0
+                    ? ""
+                    : "validated"
                 }
               />
               <p className="hint">მინიმუმ 2 ასო, ქართული ასოები</p>
@@ -207,20 +252,34 @@ function GeneralInfo() {
             ></textarea>
           </div>
           <div style={{ position: "relative" }} className="email-row">
-            {isEmailValidated && email.length > 0 && (
+            {(email.length === 0 && hasClicked && (
               <img
-                src={validated}
-                style={{ position: "absolute", top: "40px", right: "10px" }}
+                src={hasClicked ? (isEmailValidated ? validated : error) : ""}
+                style={{ position: "absolute", top: "41px", right: "10px" }}
               />
-            )}
-            {!isEmailValidated && email.length > 0 && (
-              <img
-                src={error}
-                style={{ position: "absolute", top: "40px", right: "10px" }}
-              />
-            )}
+            )) ||
+              (email.length > 0 && (
+                <img
+                  src={
+                    hasClicked
+                      ? isEmailValidated
+                        ? validated
+                        : error
+                      : isEmailValidated
+                      ? validated
+                      : error
+                  }
+                  style={{ position: "absolute", top: "41px", right: "10px" }}
+                />
+              ))}
             <label
-              className={!isEmailValidated && email.length > 0 && "error-color"}
+              className={
+                (!isEmailValidated && email.length > 0 && "error-color") ||
+                (hasClicked &&
+                  !isEmailValidated &&
+                  email.length == 0 &&
+                  "error-color")
+              }
               htmlFor="email"
             >
               იმეილი
@@ -231,30 +290,48 @@ function GeneralInfo() {
               value={email}
               id="email"
               className={
-                isEmailValidated
-                  ? "validated"
-                  : email.length > 0 && "not-validated"
+                hasClicked
+                  ? isEmailValidated
+                    ? "validated"
+                    : "not-validated"
+                  : email.length > 0 && !isEmailValidated
+                  ? "not-validated"
+                  : email.length == 0
+                  ? ""
+                  : "validated"
               }
               placeholder="anzor666@redberry.ge"
             />
             <p className="hint">უნდა მთავრდებოდეს @redberry.ge-თი</p>
           </div>
           <div className="phonenum-row" style={{ position: "relative" }}>
-            {isPhonenumValid && phonenum.length > 0 && (
+            {(phonenum.length === 0 && hasClicked && (
               <img
-                src={validated}
-                style={{ position: "absolute", top: "40px", right: "10px" }}
+                src={hasClicked ? (isPhonenumValid ? validated : error) : ""}
+                style={{ position: "absolute", top: "41px", right: "10px" }}
               />
-            )}
-            {!isPhonenumValid && phonenum.length > 0 && (
-              <img
-                src={error}
-                style={{ position: "absolute", top: "40px", right: "10px" }}
-              />
-            )}
+            )) ||
+              (phonenum.length > 0 && (
+                <img
+                  src={
+                    hasClicked
+                      ? isPhonenumValid
+                        ? validated
+                        : error
+                      : isPhonenumValid
+                      ? validated
+                      : error
+                  }
+                  style={{ position: "absolute", top: "41px", right: "10px" }}
+                />
+              ))}
             <label
               className={
-                !isPhonenumValid && phonenum.length > 0 && "error-color"
+                (!isPhonenumValid && phonenum.length > 0 && "error-color") ||
+                (hasClicked &&
+                  !isPhonenumValid &&
+                  phonenum.length == 0 &&
+                  "error-color")
               }
               htmlFor="phonenum"
             >
@@ -267,9 +344,15 @@ function GeneralInfo() {
               value={phonenum}
               placeholder="+995 551 12 34 56"
               className={
-                isPhonenumValid
-                  ? "validated"
-                  : phonenum.length > 0 && "not-validated"
+                hasClicked
+                  ? isPhonenumValid
+                    ? "validated"
+                    : "not-validated"
+                  : phonenum.length > 0 && !isPhonenumValid
+                  ? "not-validated"
+                  : phonenum.length == 0
+                  ? ""
+                  : "validated"
               }
             />
             <p className="hint">

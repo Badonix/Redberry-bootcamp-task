@@ -5,10 +5,10 @@ import validated from "../assets/validated.png";
 import error from "../assets/error.png";
 import { useGlobalContext } from "../Context";
 function ExperienceForm({
-  setIsValid,
   experiencesKey,
   experiences,
   setExperiences,
+  hasClicked,
 }) {
   const [position, setPosition] = useState("");
   const [recruiter, setRecruiter] = useState("");
@@ -17,6 +17,7 @@ function ExperienceForm({
   const [description, setDescription] = useState("");
   const [isPositionValid, setIsPositionValid] = useState(false);
   const [isRecruiterValid, setIsRecruiterValid] = useState(false);
+
   useEffect(() => {
     const exp = JSON.parse(localStorage.getItem("experiences"))?.find(
       (el) => el.id == experiencesKey
@@ -55,17 +56,9 @@ function ExperienceForm({
       : setIsRecruiterValid(false);
   }, [position, recruiter, startDate, endDate, description]);
 
-  useEffect(() => {
-    if (isPositionValid && isRecruiterValid && startDate && endDate) {
-      setIsValid(true);
-    } else {
-      setIsValid(false);
-    }
-  }, [isPositionValid, isRecruiterValid, startDate, endDate]);
   const handleRemoveExperience = () => {
     const removedArray = experiences.filter((el) => el.id != experiencesKey);
     setExperiences(removedArray);
-    setIsValid(true);
   };
   return (
     <>
@@ -78,7 +71,7 @@ function ExperienceForm({
           gap: "20px",
         }}
       >
-        {experiences.length > 1 && (
+        {experiences?.length > 1 && (
           <AiOutlineCloseCircle
             onClick={handleRemoveExperience}
             className="close-btn"
@@ -86,25 +79,34 @@ function ExperienceForm({
         )}
 
         <div className="position-row">
-          {!isPositionValid && position?.length > 0 && (
+          {(position?.length === 0 && hasClicked && (
             <img
-              style={{
-                position: "absolute",
-                right: "10px",
-              }}
-              src={error}
+              src={hasClicked ? (isPositionValid ? validated : error) : ""}
+              style={{ position: "absolute", top: "36px", right: "10px" }}
             />
-          )}
-          {isPositionValid && (
-            <img
-              style={{ position: "absolute", right: "10px" }}
-              src={validated}
-            />
-          )}
+          )) ||
+            (position?.length > 0 && (
+              <img
+                src={
+                  hasClicked
+                    ? isPositionValid
+                      ? validated
+                      : error
+                    : isPositionValid
+                    ? validated
+                    : error
+                }
+                style={{ position: "absolute", top: "36px", right: "10px" }}
+              />
+            ))}
 
           <label
             className={
-              !isPositionValid && position?.length > 0 && "error-color"
+              (!isPositionValid && position?.length > 0 && "error-color") ||
+              (hasClicked &&
+                !isPositionValid &&
+                position?.length == 0 &&
+                "error-color")
             }
             htmlFor="position"
           >
@@ -116,33 +118,48 @@ function ExperienceForm({
             type="text"
             id="position"
             className={
-              isPositionValid
-                ? "validated"
-                : position?.length > 0 && "not-validated"
+              hasClicked
+                ? isPositionValid
+                  ? "validated"
+                  : "not-validated"
+                : position?.length > 0 && !isPositionValid
+                ? "not-validated"
+                : !position
+                ? ""
+                : "validated"
             }
             placeholder="დეველოპერი, დიზაინერი და ა.შ"
           />
           <p className="hint">მინიმუმ 2 სიმბოლო </p>
         </div>
         <div className="recruiter-row">
-          {!isRecruiterValid && recruiter?.length > 0 && (
+          {(recruiter?.length === 0 && hasClicked && (
             <img
-              style={{
-                position: "absolute",
-                right: "10px",
-              }}
-              src={error}
+              src={hasClicked ? (isRecruiterValid ? validated : error) : ""}
+              style={{ position: "absolute", top: "36px", right: "10px" }}
             />
-          )}
-          {isRecruiterValid && (
-            <img
-              style={{ position: "absolute", right: "10px" }}
-              src={validated}
-            />
-          )}
+          )) ||
+            (recruiter?.length > 0 && (
+              <img
+                src={
+                  hasClicked
+                    ? isRecruiterValid
+                      ? validated
+                      : error
+                    : isRecruiterValid
+                    ? validated
+                    : error
+                }
+                style={{ position: "absolute", top: "36px", right: "10px" }}
+              />
+            ))}
           <label
             className={
-              !isRecruiterValid && recruiter?.length > 0 && "error-color"
+              (!isRecruiterValid && recruiter?.length > 0 && "error-color") ||
+              (hasClicked &&
+                !isRecruiterValid &&
+                recruiter?.length == 0 &&
+                "error-color")
             }
             htmlFor="recruiter"
           >
@@ -154,9 +171,15 @@ function ExperienceForm({
             value={recruiter}
             id="recruiter"
             className={
-              isRecruiterValid
-                ? "validated"
-                : recruiter?.length > 0 && "not-validated"
+              hasClicked
+                ? isRecruiterValid
+                  ? "validated"
+                  : "not-validated"
+                : recruiter?.length > 0 && !isRecruiterValid
+                ? "not-validated"
+                : !recruiter
+                ? ""
+                : "validated"
             }
             placeholder="დეველოპერი, დიზაინერი და ა.შ"
           />
@@ -164,31 +187,58 @@ function ExperienceForm({
         </div>
         <div className="date-row">
           <div className="start-date">
-            <label>დაწყების რიცხვი</label>
+            <label className={hasClicked && !startDate && "error-color"}>
+              დაწყების რიცხვი
+            </label>
             <input
               value={startDate}
               onChange={(e) => setStartDate(e.target.value)}
               type="date"
+              className={
+                startDate ? "validated" : hasClicked ? "not-validated" : ""
+              }
             />
           </div>
           <div className="end-date">
-            <label>დამთავრების რიცხვი</label>
+            <label className={hasClicked && !endDate && "error-color"}>
+              დამთავრების რიცხვი
+            </label>
             <input
               value={endDate}
               onChange={(e) => setEndDate(e.target.value)}
               type="date"
+              className={
+                endDate ? "validated" : hasClicked ? "not-validated" : ""
+              }
             />
           </div>
         </div>
 
-        <div className="about-me-row">
-          <label>აღწერა (არასავალდებულო)</label>
+        <div className="about-me-row" style={{ position: "relative" }}>
+          {(!description && hasClicked && (
+            <img
+              src={error}
+              style={{ position: "absolute", top: "36px", right: "10px" }}
+            />
+          )) ||
+            (description && (
+              <img
+                src={validated}
+                style={{ position: "absolute", top: "36px", right: "10px" }}
+              />
+            ))}
+          <label className={hasClicked && !description && "error-color"}>
+            აღწერა
+          </label>
           <textarea
             onChange={(e) => {
               setDescription(e.target.value);
             }}
             value={description}
             placeholder={"როლი თანამდებობაზე და ზოგადი აღწერა"}
+            className={
+              description ? "validated" : hasClicked ? "not-validated" : ""
+            }
           ></textarea>
         </div>
         <hr></hr>

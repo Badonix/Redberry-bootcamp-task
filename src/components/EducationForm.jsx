@@ -5,7 +5,13 @@ import validated from "../assets/validated.png";
 import error from "../assets/error.png";
 import axios from "axios";
 import { useGlobalContext } from "../Context";
-function EducationForm({ setIsValid, educationsKey, education, setEducation }) {
+function EducationForm({
+  hasClicked,
+  setIsValid,
+  educationsKey,
+  education,
+  setEducation,
+}) {
   const [educationPlace, setEducationPlace] = useState("");
   const [educationQuality, setEducationQuality] = useState("");
   const [endDate, setEndDate] = useState("");
@@ -23,31 +29,6 @@ function EducationForm({ setIsValid, educationsKey, education, setEducation }) {
       setDescription(edu.description);
     }
   }, []);
-  // {
-  //   "name": "დავით",
-  //   "surname": "ონიანი",
-  //   "email": "davitoniani@redberry.ge",
-  //   "phone_number": "+995598123456",
-  //   "experiences": [
-  //     {
-  //       "position": "back-end developer",
-  //       "employer": "Redberry",
-  //       "start_date": "2019/09/09",
-  //       "due_date": "2020/09/23",
-  //       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ornare nunc dui, a pellentesque magna blandit dapibus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum mattis diam nisi, at venenatis dolor aliquet vel. Pellentesque aliquet leo nec tortor pharetra, ac consectetur orci bibendum."
-  //     }
-  //   ],
-  //   "educations": [
-  //     {
-  //       "institute": "თსუ",
-  //       "degree": "სტუდენტი",
-  //       "due_date": "2017/06/25",
-  //       "description": "სამართლის ფაკულტეტის მიზანი იყო მიგვეღო ფართო თეორიული ცოდნა სამართლის არსის, სისტემის, ძირითადი პრინციპების, სამართლებრივი სისტემების, ქართული სამართლის ისტორიული წყაროების, კერძო, სისხლის და საჯარო სამართლის სფეროების ძირითადი თეორიების, პრინციპებისა და რეგულირების თავისებურებების შესახებ."
-  //     }
-  //   ],
-  //   "image": "/storage/images/0rI7LyNRJRrokoSKUTb9EKvNuyYFKOvUmDQWoFt6.png",
-  //   "about_me": "ეს არის აღწერა ჩემს შესახებ"
-  // }
 
   useEffect(() => {
     setEducation((prev) => {
@@ -99,25 +80,36 @@ function EducationForm({ setIsValid, educationsKey, education, setEducation }) {
         />
       )}
       <div className="position-row">
-        {!isEducationValid && educationPlace?.length > 0 && (
+        {(educationPlace?.length === 0 && hasClicked && (
           <img
-            style={{
-              position: "absolute",
-              right: "10px",
-            }}
-            src={error}
+            src={hasClicked ? (isEducationValid ? validated : error) : ""}
+            style={{ position: "absolute", top: "36px", right: "10px" }}
           />
-        )}
-        {isEducationValid && (
-          <img
-            style={{ position: "absolute", right: "10px" }}
-            src={validated}
-          />
-        )}
+        )) ||
+          (educationPlace?.length > 0 && (
+            <img
+              src={
+                hasClicked
+                  ? isEducationValid
+                    ? validated
+                    : error
+                  : isEducationValid
+                  ? validated
+                  : error
+              }
+              style={{ position: "absolute", top: "36px", right: "10px" }}
+            />
+          ))}
 
         <label
           className={
-            !isEducationValid && educationPlace?.length > 0 && "error-color"
+            (!isEducationValid &&
+              educationPlace?.length > 0 &&
+              "error-color") ||
+            (hasClicked &&
+              !isEducationValid &&
+              !educationPlace &&
+              "error-color")
           }
           htmlFor="position"
         >
@@ -129,9 +121,15 @@ function EducationForm({ setIsValid, educationsKey, education, setEducation }) {
           type="text"
           id="position"
           className={
-            isEducationValid
-              ? "validated"
-              : educationPlace?.length > 0 && "not-validated"
+            hasClicked
+              ? isEducationValid
+                ? "validated"
+                : "not-validated"
+              : educationPlace?.length > 0 && !isEducationValid
+              ? "not-validated"
+              : !educationPlace
+              ? ""
+              : "validated"
           }
           placeholder="სასწავლებელი"
         />
@@ -139,8 +137,16 @@ function EducationForm({ setIsValid, educationsKey, education, setEducation }) {
       </div>
       <div className="date-row">
         <div className="start-date">
-          <label htmlFor="quality">ხარისხი</label>
+          <label
+            className={educationQuality ? "" : hasClicked ? "error-color" : ""}
+            htmlFor="quality"
+          >
+            ხარისხი
+          </label>
           <select
+            className={
+              educationQuality ? "validated" : hasClicked ? "not-validated" : ""
+            }
             value={educationQuality}
             onChange={(e) => setEducationQuality(e.target.value)}
             defaultValue={"აირჩიეთ ხარისხი"}
@@ -159,20 +165,42 @@ function EducationForm({ setIsValid, educationsKey, education, setEducation }) {
           </select>
         </div>
         <div className="end-date">
-          <label>დამთავრების რიცხვი</label>
+          <label className={hasClicked && !endDate && "error-color"}>
+            დამთავრების რიცხვი
+          </label>
           <input
             value={endDate}
             onChange={(e) => setEndDate(e.target.value)}
             type="date"
+            className={
+              endDate ? "validated" : hasClicked ? "not-validated" : ""
+            }
           />
         </div>
       </div>
-      <div className="about-me-row">
-        <label>აღწერა</label>
+      <div className="about-me-row" style={{ position: "relative" }}>
+        {(!description && hasClicked && (
+          <img
+            src={error}
+            style={{ position: "absolute", top: "36px", right: "10px" }}
+          />
+        )) ||
+          (description && (
+            <img
+              src={validated}
+              style={{ position: "absolute", top: "36px", right: "10px" }}
+            />
+          ))}
+        <label className={hasClicked && !description && "error-color"}>
+          აღწერა
+        </label>
         <textarea
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           placeholder={"განათლების აღწერა"}
+          className={
+            description ? "validated" : hasClicked ? "not-validated" : ""
+          }
         ></textarea>
       </div>
       <hr></hr>

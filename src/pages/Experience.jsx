@@ -9,21 +9,39 @@ import ExperienceForm from "../components/ExperienceForm";
 function Experience() {
   const navigate = useNavigate();
   const { experiences, setExperiences } = useGlobalContext();
-  const [isValid, setIsValid] = useState(false);
+  const [hasClicked, setHasClicked] = useState(false);
   useEffect(() => {
-    console.log(experiences);
     localStorage.setItem("experiences", JSON.stringify(experiences));
   }, [experiences]);
+
+  //function to check if everything is filled && valid 2 go on next page
+  function checkProperties(arr) {
+    return arr.every((obj) => {
+      return Object.keys(obj).every((key) => {
+        if (obj[key] == undefined) {
+          return false;
+        } else if (
+          (key === "recruiter" || key === "position") &&
+          obj[key].length < 2
+        ) {
+          return false;
+        }
+        if (obj[key] === "") {
+          return false;
+        }
+        return true;
+      });
+    });
+  }
 
   const previousPage = () => {
     navigate("/usergeneral");
   };
   const nextPage = () => {
-    if (isValid) {
-      navigate("/education");
-    }
-  };
+    setHasClicked(true);
 
+    checkProperties(experiences) ? navigate("/education") : "";
+  };
   return (
     <section className="generalinfo">
       <div className="private-info">
@@ -40,7 +58,7 @@ function Experience() {
           {experiences?.map((el) => {
             return (
               <ExperienceForm
-                setIsValid={setIsValid}
+                hasClicked={hasClicked}
                 key={el.id}
                 vals={el}
                 experiencesKey={el.id}
@@ -53,9 +71,8 @@ function Experience() {
           <button
             type="button"
             onClick={() => {
-              if (isValid) {
-                setExperiences((prev) => [...prev, { id: nanoid() }]);
-              }
+              setExperiences((prev) => [...prev, { id: nanoid() }]);
+              setHasClicked(false);
             }}
             className="add-experience"
           >

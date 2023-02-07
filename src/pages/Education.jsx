@@ -9,18 +9,34 @@ function Education() {
   const navigate = useNavigate();
   const { education, setEducation } = useGlobalContext();
   const [isValid, setIsValid] = useState(false);
+  const [hasClicked, setHasClicked] = useState(false);
   useEffect(() => {
     localStorage.setItem("education", JSON.stringify(education));
   }, [education]);
 
+  //function to check if everything is filled && valid 2 finish
+  function checkProperties(arr) {
+    return arr.every((obj) => {
+      return Object.keys(obj).every((key) => {
+        if (obj[key] == undefined) {
+          return false;
+        } else if (key === "educationPlace" && obj[key].length < 2) {
+          return false;
+        }
+        if (obj[key] === "") {
+          return false;
+        }
+        return true;
+      });
+    });
+  }
   const previousPage = () => {
     navigate("/experience");
   };
 
   const handleFinish = () => {
-    if (isValid) {
-      navigate("/finish");
-    }
+    setHasClicked(true);
+    checkProperties(education) ? navigate("/finish") : "";
   };
   return (
     <section className="generalinfo">
@@ -39,6 +55,7 @@ function Education() {
             return (
               <EducationForm
                 key={el.id}
+                hasClicked={hasClicked}
                 educationsKey={el.id}
                 setIsValid={setIsValid}
                 education={education}
