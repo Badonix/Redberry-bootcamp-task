@@ -100,6 +100,7 @@ function GeneralInfo() {
         <BackToMenu />
         <div className="private-info-top-row">
           <div className="top-info">
+            <div className="invis"></div>
             <h2>პირადი ინფო</h2>
             <p>1/3</p>
           </div>

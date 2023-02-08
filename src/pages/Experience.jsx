@@ -40,7 +40,10 @@ function Experience() {
   const nextPage = () => {
     setHasClicked(true);
 
-    checkProperties(experiences) ? navigate("/education") : "";
+    if (checkProperties(experiences)) {
+      console.log("IM HERE");
+      navigate("/education");
+    }
   };
   return (
     <section className="generalinfo">
@@ -48,6 +51,8 @@ function Experience() {
         <BackToMenu />
         <div className="private-info-top-row">
           <div className="top-info">
+            <div className="invis"></div>
+
             <h2>გამოცდილება</h2>
             <p>2/3</p>
           </div>

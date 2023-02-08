@@ -1,10 +1,11 @@
 import "./App.scss";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Home from "./pages/Home";
 import Experience from "./pages/Experience";
 import GeneralInfo from "./pages/GeneralInfo";
 import Education from "./pages/Education";
 import Finish from "./pages/Finish";
+
 function App() {
   return (
     <BrowserRouter>

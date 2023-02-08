@@ -3,7 +3,6 @@ import { AiOutlineCloseCircle } from "react-icons/ai";
 import { useState, useEffect } from "react";
 import validated from "../assets/validated.png";
 import error from "../assets/error.png";
-import axios from "axios";
 import { useGlobalContext } from "../Context";
 function EducationForm({
   hasClicked,

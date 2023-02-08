@@ -13,6 +13,14 @@ $primarry-button-padding: 18px 126px;
   font-family: "Helvetica Neue";
   box-sizing: border-box;
 }
+::-webkit-scrollbar {
+  width: 3px;
+  background-color: #bcbcbc;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #f93b1d;
+  border-radius: 4px;
+}
 %button {
   outline: none;
   border-radius: 8px;
@@ -43,6 +51,9 @@ body,
 #root {
   overflow-x: hidden;
   height: 100%;
+}
+body {
+  min-height: -webkit-fill-available;
 }
 
 .homepage {
@@ -122,7 +133,7 @@ body,
       flex-direction: column;
       gap: 40px;
       margin-top: 50px;
-      width: 852px;
+      width: 100%;
       .close-btn {
         font-size: 25px;
         position: absolute;
@@ -294,6 +305,7 @@ body,
   .top-cv {
     display: flex;
     justify-content: space-between;
+    width: auto;
     h2 {
       color: #f93b1d;
       font-size: 34px;
@@ -305,6 +317,7 @@ body,
       border-radius: 50%;
       object-fit: cover;
       float: left;
+      flex-shrink: 0;
     }
     .left {
       display: flex;
@@ -459,7 +472,8 @@ input:focus {
         height: 246px;
         border-radius: 50%;
         object-fit: cover;
-        float: left;
+        min-width: 246px;
+        flex-shrink: 0 !important;
       }
       .left {
         display: flex;
@@ -560,5 +574,83 @@ input:focus {
   }
   100% {
     transform: translateX(0);
+  }
+}
+
+@media (max-width: 580px) {
+  .homepage {
+    button {
+      padding: 18px 20px;
+      width: 80%;
+    }
+    .top-row {
+      margin-left: 50px;
+    }
+    .line {
+      width: 100%;
+      padding: 0 10px;
+    }
+  }
+}
+.invis {
+  display: none;
+}
+@media (max-width: 1325px) {
+  .form-first-row {
+    flex-direction: column;
+    gap: 0 !important;
+  }
+  .private-info {
+    padding: 25px 30px !important;
+  }
+  .invis {
+    display: block;
+  }
+}
+
+@media (max-width: 800px) {
+  .img-upload-row {
+    flex-direction: column;
+    align-items: flex-start;
+    width: auto !important;
+  }
+}
+@media (max-width: 1500px) {
+  .private-info {
+    height: 100vh;
+  }
+  .generalinfo {
+    grid-template-columns: 1fr;
+  }
+  .cv {
+    height: 100vh;
+  }
+}
+
+@media (max-width: 680px) {
+  .top-cv .img {
+    width: 150px !important;
+    height: 150px !important;
+  }
+}
+
+@media (max-width: 623px) {
+  .cv {
+    padding: 30px 35px;
+    h2 {
+      font-size: 25px !important;
+    }
+  }
+}
+@media (max-height: 1080px) {
+  form {
+    gap: 14px !important;
+  }
+}
+@media (max-height: 950px) {
+  form {
+    height: 70vh !important;
+    padding: 0 10px !important;
+    overflow-y: auto;
   }
 }

@@ -96,6 +96,7 @@ function Finish() {
         console.log(updatedData);
         postData(updatedData);
       });
+    console.log(updatedData);
   }, []);
 
   return (

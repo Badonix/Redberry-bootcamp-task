@@ -36,6 +36,7 @@ function Education() {
 
   const handleFinish = () => {
     setHasClicked(true);
+    console.log(checkProperties(education));
     checkProperties(education) ? navigate("/finish") : "";
   };
   return (
@@ -44,6 +45,8 @@ function Education() {
         <BackToMenu />
         <div className="private-info-top-row">
           <div className="top-info">
+            <div className="invis"></div>
+
             <h2>განათლება</h2>
             <p>3/3</p>
           </div>
