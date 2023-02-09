@@ -578,6 +578,14 @@ input:focus {
   }
 }
 
+@media (max-height: 950px) {
+  .generalinfo {
+    .private-info {
+      padding: 50px 150px 125px 150px !important;
+    }
+  }
+}
+
 @media (max-width: 580px) {
   .homepage {
     button {

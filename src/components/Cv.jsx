@@ -19,6 +19,16 @@ function Cv() {
     education,
     degrees,
   } = useGlobalContext();
+  const formatPhoneNumber = (number) => {
+    const digitsOnly = number.replace(/[^\d]/g, "");
+    const formattedNumber = `+${digitsOnly.slice(0, 3)} ${digitsOnly.slice(
+      3,
+      6
+    )} ${digitsOnly.slice(6, 8)} ${digitsOnly.slice(8, 10)} ${digitsOnly.slice(
+      10
+    )}`;
+    return formattedNumber;
+  };
 
   return (
     <section className="cv">
@@ -40,7 +50,7 @@ function Cv() {
               {phonenum && (
                 <>
                   <img src={phone} />
-                  <p>{phonenum}</p>
+                  <p>{formatPhoneNumber(phonenum)}</p>
                 </>
               )}
             </div>

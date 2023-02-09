@@ -26,6 +26,7 @@ const AppProvider = ({ children }) => {
     localStorage.setItem("surname", surname);
     localStorage.setItem("about", about);
     localStorage.setItem("email", email);
+    A;
     localStorage.setItem("phonenum", phonenum);
   }, [name, surname, about, email, phonenum, image]);
   useEffect(() => {
