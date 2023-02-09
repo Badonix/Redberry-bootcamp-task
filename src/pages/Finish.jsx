@@ -93,6 +93,7 @@ function Finish() {
       .then((blob) => {
         const newFile = new File([blob], "File Name", { type: "image/png" });
         updatedData.image = newFile;
+        console.log(updatedData);
         postData(updatedData);
       });
   }, []);
