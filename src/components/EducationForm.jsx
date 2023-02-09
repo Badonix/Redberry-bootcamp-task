@@ -4,13 +4,7 @@ import { useState, useEffect } from "react";
 import validated from "../assets/validated.png";
 import error from "../assets/error.png";
 import { useGlobalContext } from "../Context";
-function EducationForm({
-  hasClicked,
-  setIsValid,
-  educationsKey,
-  education,
-  setEducation,
-}) {
+function EducationForm({ hasClicked, educationsKey, education, setEducation }) {
   const [educationPlace, setEducationPlace] = useState("");
   const [educationQuality, setEducationQuality] = useState("");
   const [endDate, setEndDate] = useState("");
@@ -50,17 +44,9 @@ function EducationForm({
       : setIsEducationValid(false);
   }, [educationPlace, educationQuality, endDate, description]);
 
-  useEffect(() => {
-    if (isEducationValid && endDate && educationQuality && endDate) {
-      setIsValid(true);
-    } else {
-      setIsValid(false);
-    }
-  }, [isEducationValid, endDate, educationQuality, description]);
   const handleRemoveEducation = () => {
     const removedArray = education.filter((el) => el.id != educationsKey);
     setEducation(removedArray);
-    setIsValid(true);
   };
   return (
     <div

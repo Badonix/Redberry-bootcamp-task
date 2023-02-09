@@ -578,7 +578,7 @@ input:focus {
   }
 }
 
-@media (max-height: 950px) {
+@media (max-height: 863px) {
   .generalinfo {
     .private-info {
       padding: 50px 150px 125px 150px !important;
@@ -607,10 +607,10 @@ input:focus {
 @media (max-width: 1325px) {
   .form-first-row {
     flex-direction: column;
-    gap: 0;
+    gap: 0 !important;
   }
   .private-info {
-    padding: 25px 30px;
+    padding: 25px 30px !important;
   }
   .invis {
     display: block;
@@ -621,7 +621,7 @@ input:focus {
   .img-upload-row {
     flex-direction: column;
     align-items: flex-start;
-    width: auto;
+    width: auto !important;
   }
 }
 @media (max-width: 1500px) {
@@ -638,8 +638,8 @@ input:focus {
 
 @media (max-width: 680px) {
   .top-cv .img {
-    width: 150px;
-    height: 150px;
+    width: 150px !important;
+    height: 150px !important;
   }
 }
 
@@ -647,40 +647,40 @@ input:focus {
   .cv {
     padding: 30px 35px;
     h2 {
-      font-size: 25px;
+      font-size: 25px !important;
     }
   }
 }
 @media (max-height: 1079px) {
   form {
-    gap: 14px;
+    gap: 14px !important;
   }
   .finished-page {
     h2 {
       font-size: 25px;
     }
     p {
-      font-size: 13px;
+      font-size: 13px !important;
     }
     h3 {
       font-size: 20px;
     }
     h4 {
-      font-size: 13px;
+      font-size: 13px !important;
     }
     padding: 0 30px;
     .cv {
       width: auto;
       .top-cv .img {
-        width: 150px;
-        height: 150px;
+        width: 150px !important;
+        height: 150px !important;
         min-width: 150px;
       }
     }
   }
   .notification {
-    top: 5px;
-    right: 5px;
+    top: 5px !important;
+    right: 5px !important;
   }
   .notif-cont {
     p {
@@ -690,13 +690,16 @@ input:focus {
 }
 @media (max-height: 950px) {
   form {
-    height: 70vh;
-    padding: 0 10px;
+    height: 70vh !important;
+    padding: 0 10px !important;
     overflow-y: auto;
   }
 }
 @media (max-width: 700px) {
   .finished-page .cv {
     padding: 30px 50px;
+  }
+  .generalinfo .private-info {
+    padding: 20px !important;
   }
 }

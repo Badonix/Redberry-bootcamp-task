@@ -8,7 +8,6 @@ import { useGlobalContext } from "../Context";
 function Education() {
   const navigate = useNavigate();
   const { education, setEducation } = useGlobalContext();
-  const [isValid, setIsValid] = useState(false);
   const [hasClicked, setHasClicked] = useState(false);
   useEffect(() => {
     localStorage.setItem("education", JSON.stringify(education));
@@ -60,7 +59,6 @@ function Education() {
                 key={el.id}
                 hasClicked={hasClicked}
                 educationsKey={el.id}
-                setIsValid={setIsValid}
                 education={education}
                 setEducation={setEducation}
               />
