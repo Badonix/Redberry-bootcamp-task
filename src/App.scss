@@ -607,10 +607,10 @@ input:focus {
 @media (max-width: 1325px) {
   .form-first-row {
     flex-direction: column;
-    gap: 0 !important;
+    gap: 0;
   }
   .private-info {
-    padding: 25px 30px !important;
+    padding: 25px 30px;
   }
   .invis {
     display: block;
@@ -621,7 +621,7 @@ input:focus {
   .img-upload-row {
     flex-direction: column;
     align-items: flex-start;
-    width: auto !important;
+    width: auto;
   }
 }
 @media (max-width: 1500px) {
@@ -638,8 +638,8 @@ input:focus {
 
 @media (max-width: 680px) {
   .top-cv .img {
-    width: 150px !important;
-    height: 150px !important;
+    width: 150px;
+    height: 150px;
   }
 }
 
@@ -647,40 +647,40 @@ input:focus {
   .cv {
     padding: 30px 35px;
     h2 {
-      font-size: 25px !important;
+      font-size: 25px;
     }
   }
 }
-@media (max-height: 1080px) {
+@media (max-height: 1079px) {
   form {
-    gap: 14px !important;
+    gap: 14px;
   }
   .finished-page {
     h2 {
       font-size: 25px;
     }
     p {
-      font-size: 13px !important;
+      font-size: 13px;
     }
     h3 {
       font-size: 20px;
     }
     h4 {
-      font-size: 13px !important;
+      font-size: 13px;
     }
     padding: 0 30px;
     .cv {
       width: auto;
       .top-cv .img {
-        width: 150px !important;
-        height: 150px !important;
+        width: 150px;
+        height: 150px;
         min-width: 150px;
       }
     }
   }
   .notification {
-    top: 5px !important;
-    right: 5px !important;
+    top: 5px;
+    right: 5px;
   }
   .notif-cont {
     p {
@@ -690,8 +690,8 @@ input:focus {
 }
 @media (max-height: 950px) {
   form {
-    height: 70vh !important;
-    padding: 0 10px !important;
+    height: 70vh;
+    padding: 0 10px;
     overflow-y: auto;
   }
 }

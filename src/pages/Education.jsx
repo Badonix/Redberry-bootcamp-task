@@ -69,9 +69,8 @@ function Education() {
 
           <button
             onClick={() => {
-              if (isValid) {
-                setEducation((prev) => [...prev, { id: nanoid() }]);
-              }
+              setEducation((prev) => [...prev, { id: nanoid() }]);
+              setHasClicked(false);
             }}
             type="button"
             className="add-experience"
