@@ -654,29 +654,7 @@ input:focus {
   form {
     gap: 14px !important;
   }
-  .finished-page {
-    h2 {
-      font-size: 25px;
-    }
-    p {
-      font-size: 13px !important;
-    }
-    h3 {
-      font-size: 20px;
-    }
-    h4 {
-      font-size: 13px !important;
-    }
-    padding: 0 30px;
-    .cv {
-      width: auto;
-      .top-cv .img {
-        width: 150px !important;
-        height: 150px !important;
-        min-width: 150px;
-      }
-    }
-  }
+
   .notification {
     top: 5px !important;
     right: 5px !important;
@@ -692,6 +670,28 @@ input:focus {
     height: 70vh !important;
     padding: 0 10px !important;
     overflow-y: auto;
+  }
+  .finished-page {
+    h2 {
+      font-size: 25px;
+    }
+    p {
+      font-size: 13px !important;
+    }
+    h3 {
+      font-size: 20px;
+    }
+    h4 {
+      font-size: 13px !important;
+    }
+    padding: 0 30px;
+    .cv {
+      .top-cv .img {
+        width: 150px !important;
+        height: 150px !important;
+        min-width: 150px;
+      }
+    }
   }
 }
 @media (max-width: 700px) {
