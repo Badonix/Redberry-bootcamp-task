@@ -5,6 +5,7 @@ import emailIcon from "../assets/email-icon.png";
 import phoneIcon from "../assets/phone-num-icon.png";
 import axios from "axios";
 import Loader from "../components/Loader";
+import { nanoid } from "nanoid";
 import cvWatermark from "../assets/cv-watermark.png";
 import BackToMenu from "../components/BackToMenu";
 function Finish() {
@@ -13,13 +14,21 @@ function Finish() {
   const [isNotifShowing, setIsNotifShowing] = useState(true);
   const {
     name,
+    setName,
+    setSurname,
+    setAbout,
+    setImage,
+    setEducation,
+    setEmail,
+    setPhonenum,
+    setExperiences,
     surname,
     about,
     image,
     education,
     email,
     phonenum,
-    file,
+    setFile,
     experiences,
   } = useGlobalContext();
 
@@ -94,8 +103,17 @@ function Finish() {
       .then((blob) => {
         const newFile = new File([blob], "File Name", { type: "image/png" });
         updatedData.image = newFile;
-        console.log(updatedData);
         postData(updatedData);
+        setName("");
+        setSurname("");
+        setAbout("");
+        setImage("");
+        setEducation([{ id: nanoid() }]);
+        setEmail("");
+        setPhonenum("");
+        setExperiences([{ id: nanoid() }]);
+        setFile("");
+        localStorage.clear();
       });
   }, []);
 
