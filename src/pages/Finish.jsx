@@ -55,6 +55,7 @@ function Finish() {
       })
       .then((res) => {
         setData(res.data);
+        console.log(res.data);
         setLoading(false);
       })
       .catch((e) => console.log(e));

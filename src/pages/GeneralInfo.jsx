@@ -91,9 +91,6 @@ function GeneralInfo() {
     setIsPhonenumValid(isValid);
   }, [name, surname, email, phonenum]);
 
-  const handleNameChange = (e) => {
-    setName(e.target.value);
-  };
   return (
     <section className="generalinfo">
       <div className="private-info">

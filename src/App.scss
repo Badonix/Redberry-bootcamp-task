@@ -294,6 +294,7 @@ body {
   overflow-y: auto;
   &::-webkit-scrollbar {
     width: 2px;
+    background: transparent;
   }
   &::-webkit-scrollbar-thumb {
     background: #909090;
